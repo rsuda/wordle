@@ -1,3 +1,30 @@
+.toast {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #000;
+  color: #fff;
+  padding: 15px 30px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  z-index: 2000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
 .App {
   display: flex;
   flex-direction: column;
@@ -118,34 +145,167 @@
   background-color: #333;
 }
 
-.modal-overlay {
+.modal {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ffffff;
+  border: 2px solid #d3d6da;
+  border-radius: 12px;
+  padding: 40px;
+  max-width: 500px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  z-index: 1001;
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
-.modal {
-  background-color: #ffffff;
-  border: 1px solid #d3d6da;
+.welcome-modal {
+  max-width: 600px;
+}
+
+.welcome-page h2 {
+  font-size: 2.5rem;
+  margin-bottom: 25px;
+  color: #000;
+}
+
+.welcome-content {
+  text-align: left;
+  margin-bottom: 30px;
+}
+
+.welcome-section {
+  margin-bottom: 25px;
+}
+
+.welcome-section h3 {
+  font-size: 1.3rem;
+  margin-bottom: 12px;
+  color: #000;
+}
+
+.welcome-section p {
+  color: #787c7e;
+  margin-bottom: 10px;
+  line-height: 1.6;
+}
+
+.powerup-intro {
+  font-weight: 600;
+  color: #000;
+  margin-bottom: 15px;
+}
+
+.welcome-section ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.welcome-section li {
+  color: #787c7e;
+  margin-bottom: 12px;
+  line-height: 1.6;
+  padding-left: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.welcome-section strong {
+  color: #000;
+  font-weight: 600;
+}
+
+.demo-tile {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.demo-tile.correct {
+  background-color: #6BAA64;
+}
+
+.demo-tile.present {
+  background-color: #c8b458;
+}
+
+.demo-tile.absent {
+  background-color: #787c7e;
+}
+
+.powerup-preview {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.powerup-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #787c7e;
+}
+
+.preview-icon {
+  width: 35px;
+  height: 35px;
+}
+
+.welcome-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.page-indicator {
+  color: #787c7e;
+  font-size: 0.9rem;
+}
+
+.nav-btn {
+  background-color: #000;
+  color: white;
+  border: none;
   border-radius: 8px;
-  padding: 40px;
-  max-width: 400px;
-  text-align: center;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  z-index: 1001;
-  position: relative;
+  padding: 12px 30px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.nav-btn:hover {
+  background-color: #333;
+}
+
+.nav-btn.secondary {
+  background-color: #fff;
+  color: #000;
+  border: 2px solid #d3d6da;
+}
+
+.nav-btn.secondary:hover {
+  background-color: #f8f8f8;
 }
 
 .powerup-modal {
   max-width: 500px;
   padding: 30px;
+}
+
+.modal-gift-icon {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 10px;
 }
 
 .powerup-modal h2 {
@@ -204,40 +364,335 @@
   color: #787c7e;
 }
 
-.toast {
-  position: fixed;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #000;
-  color: #fff;
-  padding: 15px 30px;
+@media (max-width: 480px) {
+  .modal {
+    padding: 25px;
+    max-width: 95%;
+  }
+
+  .welcome-page h2 {
+    font-size: 2rem;
+  }
+
+  .welcome-section h3 {
+    font-size: 1.1rem;
+  }
+
+  .nav-btn {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+}
+.header {
+  border-bottom: 1px solid #d3d6da;
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+  padding: 20px 0;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  letter-spacing: 0.2rem;
+  font-weight: 700;
+  color: #000;
+}
+
+.help-btn {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  background-color: #fff;
+  color: #000;
+  border: 2px solid #d3d6da;
   border-radius: 8px;
-  font-size: 1rem;
+  padding: 8px 16px;
+  font-size: 0.9rem;
   font-weight: 600;
-  z-index: 2000;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  animation: slideDown 0.3s ease-out;
+  cursor: pointer;
+  transition: all 0.2s;
 }
 
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateX(-50%) translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-  }
+.help-btn:hover {
+  background-color: #f8f8f8;
+  border-color: #000;
 }
 
-.App {
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ffffff;
+  border: 2px solid #d3d6da;
+  border-radius: 12px;
+  padding: 40px;
+  max-width: 500px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  z-index: 1001;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.welcome-modal {
+  max-width: 600px;
+  padding: 20px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.page-indicator {
+  color: #787c7e;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: #787c7e;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s;
+}
+
+.close-btn:hover {
+  color: #000;
+}
+
+.welcome-page h2 {
+  font-size: 2.5rem;
+  margin-bottom: 25px;
+  color: #000;
+}
+
+.welcome-content {
+  text-align: left;
+  margin-bottom: 30px;
+  padding: 0 20px;
+}
+
+.welcome-section {
+  margin-bottom: 25px;
+}
+
+.welcome-section h3 {
+  font-size: 1.3rem;
+  margin-bottom: 12px;
+  color: #000;
+}
+
+.welcome-section p {
+  color: #787c7e;
+  margin-bottom: 10px;
+  line-height: 1.6;
+}
+
+.feature-item {
+  margin-bottom: 25px;
+}
+
+.feature-item h4 {
+  font-size: 1.2rem;
+  color: #000;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.feature-item p {
+  color: #787c7e;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.powerup-intro {
+  font-weight: 600;
+  color: #000;
+  margin-bottom: 15px;
+}
+
+.welcome-section ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.welcome-section li {
+  color: #787c7e;
+  margin-bottom: 12px;
+  line-height: 1.6;
+  padding-left: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.welcome-section strong {
+  color: #000;
+  font-weight: 600;
+}
+
+.demo-tile {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.demo-tile.correct {
+  background-color: #6BAA64;
+}
+
+.demo-tile.present {
+  background-color: #c8b458;
+}
+
+.demo-tile.absent {
+  background-color: #787c7e;
+}
+
+.powerup-preview {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  min-height: 100vh;
-  padding: 20px;
-  background-color: #ffffff;
+  gap: 15px;
 }
 
-/* ... rest of your existing CSS ... */
+.powerup-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #787c7e;
+}
+
+.preview-icon {
+  width: 35px;
+  height: 35px;
+}
+
+.welcome-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin-top: 30px;
+  padding: 0 20px;
+}
+
+.nav-btn {
+  background-color: #000;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 30px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.nav-btn:hover {
+  background-color: #333;
+}
+
+.nav-btn.secondary {
+  background-color: #fff;
+  color: #000;
+  border: 2px solid #d3d6da;
+}
+
+.nav-btn.secondary:hover {
+  background-color: #f8f8f8;
+}
+
+@media (max-width: 480px) {
+  .header h1 {
+    font-size: 2rem;
+  }
+
+  .help-btn {
+    font-size: 0.8rem;
+    padding: 6px 12px;
+  }
+
+  .modal {
+    padding: 25px;
+    max-width: 95%;
+  }
+
+  .welcome-modal {
+    padding: 15px;
+  }
+
+  .welcome-page h2 {
+    font-size: 2rem;
+  }
+
+  .welcome-section h3 {
+    font-size: 1.1rem;
+  }
+
+  .feature-item h4 {
+    font-size: 1.1rem;
+  }
+
+  .nav-btn {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+
+  .welcome-content {
+    padding: 0 10px;
+  }
+
+  .welcome-nav {
+    padding: 0 10px;
+  }
+}
+
+.help-btn {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.help-btn:hover {
+  opacity: 0.7;
+}
+
+.help-icon {
+  width: 28px;
+  height: 28px;
+}
+
+@media (max-width: 480px) {
+  .help-icon {
+    width: 24px;
+    height: 24px;
+  }
+}

@@ -7,6 +7,7 @@ import removeLettersIcon from './icons/removeLetters.svg';
 import revealFirstLetterIcon from './icons/revealFirstLetter.svg';
 import revealLettersIcon from './icons/revealLetters.svg';
 import giftIcon from './icons/gift-duotone.svg';
+import infoIcon from './icons/info-bold.svg';
 
 function App() {
   const [solution, setSolution] = useState('');
@@ -22,7 +23,9 @@ function App() {
   const [powerUpUsed, setPowerUpUsed] = useState(false);
   const [powerUpAvailable, setPowerUpAvailable] = useState(false);
   const [toast, setToast] = useState({ show: false, message: '' });
-  const [lockedPosition, setLockedPosition] = useState(null); // { position: number, letter: string }
+  const [lockedPosition, setLockedPosition] = useState(null);
+  const [showWelcome, setShowWelcome] = useState(true);
+  const [welcomePage, setWelcomePage] = useState(1);
 
   useEffect(() => {
     const randomAnswer = ANSWERS[Math.floor(Math.random() * ANSWERS.length)].toUpperCase();
@@ -53,7 +56,6 @@ function App() {
     setRemainingWords(calculateRemainingWords());
   }, [lockedLetters, letterStates, solution]);
 
-  // Initialize current guess with locked position if exists
   useEffect(() => {
     if (lockedPosition !== null && currentGuess.length === 0) {
       const guessArray = '     '.split('');
@@ -68,11 +70,9 @@ function App() {
     }
     
     if (currentGuess.length < 5) {
-      // If there's a locked position, insert around it
       if (lockedPosition !== null) {
         const guessArray = currentGuess.padEnd(5, ' ').split('');
         
-        // Find the first empty spot (that's not the locked position)
         for (let i = 0; i < 5; i++) {
           if (i !== lockedPosition.position && guessArray[i] === ' ') {
             guessArray[i] = letter;
@@ -90,7 +90,6 @@ function App() {
     if (lockedPosition !== null) {
       const guessArray = currentGuess.padEnd(5, ' ').split('');
       
-      // Find the last non-empty, non-locked position
       for (let i = 4; i >= 0; i--) {
         if (i !== lockedPosition.position && guessArray[i] !== ' ') {
           guessArray[i] = ' ';
@@ -104,7 +103,6 @@ function App() {
   };
 
   const handleSubmit = () => {
-    // Build the actual guess with locked position
     let actualGuess = currentGuess;
     if (lockedPosition !== null) {
       const guessArray = currentGuess.padEnd(5, ' ').split('');
@@ -207,10 +205,8 @@ function App() {
     newStates[firstLetter] = 'correct';
     setLetterStates(newStates);
     
-    // Lock the first position for all future guesses
     setLockedPosition({ position: 0, letter: firstLetter });
     
-    // Update current guess to include this letter
     const guessArray = currentGuess.padEnd(5, ' ').split('');
     guessArray[0] = firstLetter;
     setCurrentGuess(guessArray.join('').replace(/ /g, ''));
@@ -220,6 +216,16 @@ function App() {
     setShowPowerUp(false);
     setPowerUpUsed(true);
     setPowerUpAvailable(false);
+  };
+
+  const openHelpModal = () => {
+    setShowWelcome(true);
+    setWelcomePage(1);
+  };
+
+  const closeWelcome = () => {
+    setShowWelcome(false);
+    setWelcomePage(1);
   };
 
   const revealTwoLetters = () => {
@@ -292,8 +298,123 @@ function App() {
     setLockedPosition(null);
   };
 
+  const nextWelcomePage = () => {
+    if (welcomePage < 3) {
+      setWelcomePage(welcomePage + 1);
+    } else {
+      setShowWelcome(false);
+    }
+  };
+
+  const prevWelcomePage = () => {
+    if (welcomePage > 1) {
+      setWelcomePage(welcomePage - 1);
+    }
+  };
+
   return (
     <div className="App">
+     {showWelcome && (
+  <div className="modal welcome-modal">
+    <div className="modal-header">
+      <span className="page-indicator">{welcomePage} / 3</span>
+      <button onClick={closeWelcome} className="close-btn">×</button>
+    </div>
+
+    {welcomePage === 1 && (
+      <div className="welcome-page">
+        <h2>Welcome to Wordle+</h2>
+        
+        <div className="welcome-content">
+          <div className="welcome-section">
+            <h3>How to Play</h3>
+            <p>Guess the 5-letter word in 6 tries. After each guess:</p>
+            <ul>
+              <li><span className="demo-tile correct"></span>Correct letter, correct position</li>
+              <li><span className="demo-tile present"></span>Correct letter, wrong position</li>
+              <li><span className="demo-tile absent"></span>Letter not in word</li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="welcome-nav">
+          <div></div>
+          <button onClick={nextWelcomePage} className="nav-btn">
+            Next
+          </button>
+        </div>
+      </div>
+    )}
+
+    {welcomePage === 2 && (
+      <div className="welcome-page">
+        <h2>Unique Features</h2>
+        
+        <div className="welcome-content">
+          <div className="welcome-section">
+            <div className="feature-item">
+              <h4>Letter Locking</h4>
+              <p>Wrong letters disappear from the keyboard and can't be used again</p>
+            </div>
+            <div className="feature-item">
+              <h4>Word Counter</h4>
+              <p>See how many possible words remain based on available letters</p>
+            </div>
+            <div className="feature-item">
+              <h4>Power-Up</h4>
+              <p>Unlock a special boost on your 4th turn to help solve the puzzle</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="welcome-nav">
+          <button onClick={prevWelcomePage} className="nav-btn secondary">
+            Back
+          </button>
+          <button onClick={nextWelcomePage} className="nav-btn">
+            Next
+          </button>
+        </div>
+      </div>
+    )}
+
+    {welcomePage === 3 && (
+      <div className="welcome-page">
+        <h2>Power-Ups</h2>
+        
+        <div className="welcome-content">
+          <div className="welcome-section">
+            <p className="powerup-intro">Choose one on your 4th turn:</p>
+            <div className="powerup-preview">
+              <div className="powerup-item">
+                <img src={revealFirstLetterIcon} alt="Reveal" className="preview-icon" />
+                <span>Reveal & lock the first letter</span>
+              </div>
+              <div className="powerup-item">
+                <img src={revealLettersIcon} alt="Hint" className="preview-icon" />
+                <span>Get 2 letters in the word</span>
+              </div>
+              <div className="powerup-item">
+                <img src={removeLettersIcon} alt="Remove" className="preview-icon" />
+                <span>Remove half of wrong letters</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="welcome-nav">
+          <button onClick={prevWelcomePage} className="nav-btn secondary">
+            Back
+          </button>
+          <button onClick={closeWelcome} className="nav-btn">
+            Start Playing
+          </button>
+        </div>
+      </div>
+    )}
+  </div>
+)}
+
       {toast.show && (
         <div className="toast">
           {toast.message}
@@ -301,7 +422,10 @@ function App() {
       )}
 
       <header className="header">
-        <h1>WORDLE CLONE</h1>
+        <h1>WORDLE+</h1>
+        <button onClick={openHelpModal} className="help-btn">
+          <img src={infoIcon} alt="Help" className="help-icon" />
+        </button>
       </header>
       
       {process.env.NODE_ENV === 'development' && (
@@ -362,30 +486,29 @@ function App() {
       </div>
 
       {showPowerUp && (
-        <div className="modal-overlay">
-          <div className="modal powerup-modal">
-            <h2>🎁 Power-Up Time!</h2>
-            <p className="powerup-description">Choose one boost to help you:</p>
+        <div className="modal powerup-modal">
+          <img src={giftIcon} alt="Power-up" className="modal-gift-icon" />
+          <h2>Power-Up Time!</h2>
+          <p className="powerup-description">Choose one boost to help you:</p>
+          
+          <div className="powerup-options">
+            <button className="powerup-btn" onClick={revealCorrectLetter}>
+              <img src={revealFirstLetterIcon} alt="Reveal Letter" className="powerup-icon-img" />
+              <span className="powerup-title">Reveal Letter</span>
+              <span className="powerup-desc">Get one letter in the right spot</span>
+            </button>
             
-            <div className="powerup-options">
-              <button className="powerup-btn" onClick={revealCorrectLetter}>
-                <img src={revealFirstLetterIcon} alt="Reveal Letter" className="powerup-icon-img" />
-                <span className="powerup-title">Reveal Letter</span>
-                <span className="powerup-desc">Get one letter in the right spot</span>
-              </button>
-              
-              <button className="powerup-btn" onClick={revealTwoLetters}>
-                <img src={revealLettersIcon} alt="Hint Letters" className="powerup-icon-img" />
-                <span className="powerup-title">Hint Letters</span>
-                <span className="powerup-desc">Get 2 letters that are in the word</span>
-              </button>
-              
-              <button className="powerup-btn" onClick={removeHalfWrongLetters}>
-                <img src={removeLettersIcon} alt="Clear Keyboard" className="powerup-icon-img" />
-                <span className="powerup-title">Clear Keyboard</span>
-                <span className="powerup-desc">Remove half of wrong letters</span>
-              </button>
-            </div>
+            <button className="powerup-btn" onClick={revealTwoLetters}>
+              <img src={revealLettersIcon} alt="Hint Letters" className="powerup-icon-img" />
+              <span className="powerup-title">Hint Letters</span>
+              <span className="powerup-desc">Get 2 letters that are in the word</span>
+            </button>
+            
+            <button className="powerup-btn" onClick={removeHalfWrongLetters}>
+              <img src={removeLettersIcon} alt="Clear Keyboard" className="powerup-icon-img" />
+              <span className="powerup-title">Clear Keyboard</span>
+              <span className="powerup-desc">Remove half of wrong letters</span>
+            </button>
           </div>
         </div>
       )}
