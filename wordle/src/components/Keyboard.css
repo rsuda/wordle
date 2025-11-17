@@ -1,0 +1,88 @@
+.keyboard {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: relative;
+  z-index: 1;
+}
+
+.keyboard-row {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+}
+
+.key {
+  min-width: 43px;
+  height: 43px;
+  border: 2px solid #d3d6da;
+  border-radius: 3px;
+  background-color: #fff;
+  color: #000;
+  font-size: 0.8rem;
+  font-weight: bold;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.1s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.key:hover:not(:disabled) {
+  opacity: 0.8;
+}
+
+.key:disabled {
+  cursor: not-allowed;
+}
+
+.key.special {
+  min-width: 65px;
+  font-size: 0.7rem;
+}
+
+.key.correct {
+  background-color: #6BAA64;
+  border-color: #6BAA64;
+  color: #fff;
+}
+
+.key.present {
+  background-color: #c8b458;
+  border-color: #c8b458;
+  color: #fff;
+}
+
+.key.absent {
+  background-color: #787c7e;
+  border-color: #787c7e;
+  color: #fff;
+}
+
+.key.locked {
+  background-color: #e8e8e8;
+  border-color: #e8e8e8;
+  color: #999;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.key.locked:hover {
+  opacity: 0.5;
+  background-color: #e8e8e8;
+}
+
+@media (max-width: 480px) {
+  .key {
+    min-width: 32px;
+    height: 32px;
+    font-size: 0.7rem;
+  }
+  
+  .key.special {
+    min-width: 50px;
+    font-size: 0.6rem;
+  }
+}

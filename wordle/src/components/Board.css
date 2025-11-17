@@ -1,0 +1,68 @@
+.board {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.row-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.powerup-indicator {
+  position: absolute;
+  left: -50px;
+}
+
+.powerup-indicator.clickable {
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.powerup-indicator.clickable:hover {
+  transform: scale(1.2);
+}
+
+.powerup-badge {
+  font-size: 1.8rem;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+.powerup-badge-svg {
+  width: 40px;
+  height: 40px;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+.powerup-indicator.wiggle {
+  animation: wiggle 0.5s infinite;
+}
+
+@keyframes wiggle {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-15deg);
+  }
+  75% {
+    transform: rotate(15deg);
+  }
+}
+
+@media (max-width: 480px) {
+  .powerup-indicator {
+    left: -40px;
+  }
+  
+  .powerup-badge {
+    font-size: 1.4rem;
+  }
+  
+  .powerup-badge-svg {
+    width: 32px;
+    height: 32px;
+  }
+}

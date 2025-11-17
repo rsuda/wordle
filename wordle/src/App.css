@@ -1,0 +1,243 @@
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  background-color: #ffffff;
+}
+
+.header {
+  border-bottom: 1px solid #d3d6da;
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+  padding: 20px 0;
+  margin-bottom: 20px;
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  letter-spacing: 0.2rem;
+  font-weight: 700;
+  color: #000;
+}
+
+.debug-answer {
+  background-color: #fff3cd;
+  border: 2px solid #ffc107;
+  padding: 10px 20px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.debug-answer small {
+  color: #856404;
+  font-size: 0.9rem;
+}
+
+.debug-answer strong {
+  color: #000;
+  font-weight: 700;
+}
+
+.game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  width: 100%;
+  max-width: 500px;
+}
+
+.word-counter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 15px 25px;
+}
+
+.counter-label {
+  font-size: 0.9rem;
+  color: #787c7e;
+  font-weight: 500;
+}
+
+.counter-number {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #000;
+}
+
+.game-over-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
+}
+
+.win-message {
+  font-size: 2rem;
+  color: #000;
+  margin: 0;
+}
+
+.lose-message {
+  font-size: 2rem;
+  color: #000;
+  margin: 0;
+}
+
+.result-text {
+  font-size: 1.1rem;
+  color: #787c7e;
+  margin: 0;
+}
+
+.result-text strong {
+  color: #000;
+  font-weight: 700;
+}
+
+.play-again-btn {
+  background-color: #000;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 30px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-top: 10px;
+}
+
+.play-again-btn:hover {
+  background-color: #333;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal {
+  background-color: #ffffff;
+  border: 1px solid #d3d6da;
+  border-radius: 8px;
+  padding: 40px;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1001;
+  position: relative;
+}
+
+.powerup-modal {
+  max-width: 500px;
+  padding: 30px;
+}
+
+.powerup-modal h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.powerup-description {
+  color: #787c7e;
+  margin-bottom: 25px;
+  font-size: 1rem;
+}
+
+.powerup-options {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.powerup-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #f8f8f8;
+  border: 2px solid #d3d6da;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.powerup-btn:hover {
+  background-color: #000;
+  border-color: #000;
+  color: #fff;
+}
+
+.powerup-btn:hover .powerup-desc {
+  color: #ccc;
+}
+
+.powerup-icon-img {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 10px;
+}
+
+.powerup-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.powerup-desc {
+  font-size: 0.9rem;
+  color: #787c7e;
+}
+
+.toast {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #000;
+  color: #fff;
+  padding: 15px 30px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  z-index: 2000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  background-color: #ffffff;
+}
+
+/* ... rest of your existing CSS ... */
